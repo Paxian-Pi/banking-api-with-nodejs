@@ -50,7 +50,7 @@ const swaggerOptions = {
 const specs = swaggerJsDoc(swaggerOptions)
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
 
-// // Configure midleware
+// Configure midleware
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 

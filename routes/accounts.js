@@ -300,7 +300,7 @@ router.post('/transfer', passport.authenticate('jwt', { session: false }), (req,
                                     .then(recipient => {
 
                                         if (recipient === null) {
-                                            errors.invalid = "Account number does belong to this recipient!"
+                                            errors.invalid = "Account number does NOT belong to this recipient!"
                                             return res.status(404).json(errors)
                                         }
 

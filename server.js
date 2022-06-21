@@ -8,7 +8,7 @@ const swaggerJsDoc = require('swagger-jsdoc')
 const path = require('path')
 
 // Initialize port
-const port = process.env.PORT || 5001
+const port = process.env.PORT || 5000
 
 // Define Routes
 const users = require('./routes/users')

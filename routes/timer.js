@@ -4,7 +4,7 @@ const passport = require('passport')
 
 const TimerModel = require('../models/TimerModel')
 
-// @route   GET api/timer/start
+// @route   GET api/timer/countdown
 // @desc    Get server countdown timer
 // @access  public
 
@@ -26,7 +26,7 @@ const TimerModel = require('../models/TimerModel')
 
 /**
  * @swagger
- * /api/timer/start:
+ * /api/timer/countdown:
  *  post:
  *      summary: Get server countdown timer
  *      tags: [TimerModel]
@@ -46,8 +46,8 @@ const TimerModel = require('../models/TimerModel')
  *                          type: object
  *                          $ref: '#/components/schemas/TimerModel'
  */
-router.post('/start', (req, res) => {
-
+router.post('/countdown', (req, res) => {
+    
     const timer = new TimerModel({
         startTimer: req.body.startTimer,
         minutes: 05,

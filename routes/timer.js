@@ -66,14 +66,14 @@ router.post('/start', (req, res) => {
             
             res.json(countDownTime)
             
-            if (isTimer.startTimer == 'start') {
-                TimerModel.findOneAndUpdate(
-                    {
-                        $set: { startTimer: 'stop' },
-                        new: true
-                    }
-                ).then((done) => res.json(done))
-            }
+            // if (isTimer.startTimer == 'start') {
+            //     TimerModel.findOneAndUpdate(
+            //         {
+            //             $set: { startTimer: 'stop' },
+            //             new: true
+            //         }
+            //     ).then((done) => res.json(done))
+            // }
         })
         .catch(() => res.status(404).json('Could not get timer!'))
 })

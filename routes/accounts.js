@@ -520,7 +520,7 @@ router.post('/deposit', passport.authenticate('jwt', { session: false }), (req, 
         user: req.user.id,
         depositeAmount: req.body.depositeAmount
     })
-
+    
     BankAccountModel.findOne({ user: req.user.id })
         .then(() => {
 

@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000
 // Define Routes
 const users = require('./routes/users')
 const accounts = require('./routes/accounts')
-const validateTransaction = require('./routes/validateTransaction')
+const timer = require('./routes/timer')
 // const transactions = require('./routes/transactions')
 
 // Initialize app
@@ -41,7 +41,7 @@ const swaggerOptions = {
         },
         servers: [
             { url: 'https://banking-api-with-nodejs.herokuapp.com' },
-            { url: `http://localhost:5001` }
+            { url: `http://localhost:5000` }
         ],
     },
     apis: [`${path.join(__dirname, './routes/*.js')}`],
@@ -74,7 +74,7 @@ app.get('/', (req, res) => res.send('Welcome! The VeeGil banking API'))
 // Use Routes
 app.use('/api/user', users)
 app.use('/api/account', accounts)
-// app.use('/api/validate-transaction', validateTransaction)
+app.use('/api/timer', timer)
 // app.use('/api/transactions', transactions)
 
 app.listen(port, () => console.log(`Server running on port ${port}`))

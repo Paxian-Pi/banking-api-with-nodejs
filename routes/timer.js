@@ -19,7 +19,7 @@ const TimerModel = require('../models/TimerModel')
 /**
  * @swagger
  * /api/timer/start:
- *  get:
+ *  post:
  *      summary: Get server countdown timer
  *      tags: [TimerModel]
  *      responses:

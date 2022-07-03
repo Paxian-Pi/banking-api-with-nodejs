@@ -30,6 +30,13 @@ const TimerModel = require('../models/TimerModel')
  *  post:
  *      summary: Get server countdown timer
  *      tags: [TimerModel]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/TimerModel'
  *      responses:
  *          200:
  *              description: Server countdown timer

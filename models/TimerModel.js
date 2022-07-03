@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const TimerSchema = new Schema({
     startTimer: {
-        type: Boolean,
+        type: String,
         required: true
     },
     minutes: {

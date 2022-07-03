@@ -14,6 +14,14 @@ const TimerModel = require('../models/TimerModel')
  *  schemas:
  *      TimerModel:
  *          type: object
+ *          properties:
+ *              startTimer:
+ *                  type: string
+ *                  description: Start timer
+ *          required:
+ *              - startTimer
+ *          example:
+ *              startTimer: start
  */
 
 /**
@@ -51,11 +59,11 @@ router.post('/start', (req, res) => {
 
             res.json(countDownTime)
 
-            // if (isTimer.startTimer) {
+            // if (isTimer.startTimer == 'start') {
             //     TimerModel.findOneAndUpdate(
             //         {
             //             $set: {
-            //                 startTimer: false,
+            //                 startTimer: stop,
             //                 minutes: 05,
             //                 seconds: 45
             //             },

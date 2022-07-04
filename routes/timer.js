@@ -48,27 +48,22 @@ const TimerModel = require('../models/TimerModel')
  */
 router.post('/countdown', (req, res) => {
 
-    let timeleft
-
     const interval = setInterval(() => {
-        var d = new Date(); //get current time
+        var d = new Date(); // get current time or OTP expiry time in data-time format
         var seconds = d.getMinutes() * 60 + d.getSeconds();
-        var fiveMin = 60 * 1; //five minutes is 300 seconds!
-        timeleft = fiveMin - seconds % fiveMin; // let's say now is 01:30, then current seconds is 60+30 = 90. And 90%300 = 90, finally 300-90 = 210. That's the time left!
-        var result = parseInt(timeleft / 60) + ':' + timeleft % 60; //formart seconds back into mm:ss
-
+        var fiveMin = 60 * 1; // five minutes is 300 seconds!
+        var timeleft = fiveMin - seconds % fiveMin; // if now is 01:30, then current seconds is 60+30 = 90. And 90%300 = 90, finally 300-90 = 210. That's the time left!
+        var result = parseInt(timeleft / 60) + ':' + timeleft % 60; // formart seconds back into mm:ss
+        
         console.log(result)
-
+        
         if (result == '0:1') {
             clearInterval(interval)
         }
-
-        
-
     }, 1000)
     
 
-
+    
     const timer = new TimerModel({
         startTimer: req.body.startTimer,
         minutes: 3,
@@ -87,14 +82,6 @@ router.post('/countdown', (req, res) => {
 
             res.json(countDownTime)
 
-            // if (isTimer.startTimer == 'start') {
-            //     TimerModel.findOneAndUpdate(
-            //         {
-            //             $set: { startTimer: 'stop' },
-            //             new: true
-            //         }
-            //     ).then((done) => res.json(done))
-            // }
         })
         .catch((err) => res.status(404).json(err))
 })

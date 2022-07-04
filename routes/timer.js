@@ -47,10 +47,31 @@ const TimerModel = require('../models/TimerModel')
  *                          $ref: '#/components/schemas/TimerModel'
  */
 router.post('/countdown', (req, res) => {
+
+    let timeleft
+
+    const interval = setInterval(() => {
+        var d = new Date(); //get current time
+        var seconds = d.getMinutes() * 60 + d.getSeconds();
+        var fiveMin = 60 * 1; //five minutes is 300 seconds!
+        timeleft = fiveMin - seconds % fiveMin; // let's say now is 01:30, then current seconds is 60+30 = 90. And 90%300 = 90, finally 300-90 = 210. That's the time left!
+        var result = parseInt(timeleft / 60) + ':' + timeleft % 60; //formart seconds back into mm:ss
+
+        console.log(result)
+
+        if (result == '0:1') {
+            clearInterval(interval)
+        }
+
+        
+
+    }, 1000)
     
+
+
     const timer = new TimerModel({
         startTimer: req.body.startTimer,
-        minutes: 05,
+        minutes: 3,
         seconds: 45
     })
 
@@ -63,9 +84,9 @@ router.post('/countdown', (req, res) => {
                 minutes: isTimer.minutes,
                 seconds: isTimer.seconds
             }
-            
+
             res.json(countDownTime)
-            
+
             // if (isTimer.startTimer == 'start') {
             //     TimerModel.findOneAndUpdate(
             //         {
@@ -75,7 +96,7 @@ router.post('/countdown', (req, res) => {
             //     ).then((done) => res.json(done))
             // }
         })
-        .catch(() => res.status(404).json('Could not get timer!'))
+        .catch((err) => res.status(404).json(err))
 })
 
 module.exports = router

@@ -8,44 +8,7 @@ const TimerModel = require('../models/TimerModel')
 // @desc    Get server countdown timer
 // @access  public
 
-/**
- * @swagger
- * components:
- *  schemas:
- *      TimerModel:
- *          type: object
- *          properties:
- *              startTimer:
- *                  type: string
- *                  description: Start timer
- *          required:
- *              - startTimer
- *          example:
- *              startTimer: start
- */
 
-/**
- * @swagger
- * /api/timer/countdown:
- *  post:
- *      summary: Get server countdown timer
- *      tags: [TimerModel]
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      $ref: '#/components/schemas/TimerModel'
- *      responses:
- *          200:
- *              description: Server countdown timer
- *              content:
- *                  application/json:
- *                      schema:
- *                          type: object
- *                          $ref: '#/components/schemas/TimerModel'
- */
 router.post('/countdown', (req, res) => {
 
     const interval = setInterval(() => {
@@ -55,6 +18,7 @@ router.post('/countdown', (req, res) => {
         var timeleft = fiveMin - seconds % fiveMin; // if now is 01:30, then current seconds is 60+30 = 90. And 90%300 = 90, finally 300-90 = 210. That's the time left!
         var result = parseInt(timeleft / 60) + ':' + timeleft % 60; // formart seconds back into mm:ss
         
+        console.log(d.getSeconds())
         console.log(result)
         
         if (result == '0:1') {

@@ -24,12 +24,12 @@ router.put("/uploadfile", upload.single("file"), uploadFile);
 function uploadFile(req, res) {
     const host = req.hostname;
     const filePath = req.protocol + "://" + host + '/' + req.file.path;
-    
+
     // const fileUpload = new FileUploadModel({
     //     file: req.file.filename,
     //     filePath: filePath
     // })
-    
+
     // fileUpload
     //     .save()
     //     .then(file => {
@@ -37,7 +37,13 @@ function uploadFile(req, res) {
     //         res.json({ message: "Successfully uploaded file", data: file });
     //     })
 
-    res.json({ message: "Successfully uploaded file", data: req.file });
+    res.json({
+        message: "Successfully uploaded file",
+        data: {
+            file: req.file.filename,
+            filePath: filePath
+        }
+    });
 }
 
 

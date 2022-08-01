@@ -6,16 +6,16 @@ const path = require("path")
 
 // const FileUploadModel = require('../models/FileUploadModel')
 
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, __dirname + '/uploads/');
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, Date.now() + path.extname(file.originalname))
-//     }
-// });
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, __dirname + '/uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+});
 
-// const upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
 // router.get('/upload', (req, res) => res.send('File upload API'))
 

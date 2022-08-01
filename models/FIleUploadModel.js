@@ -6,6 +6,9 @@ const FileUploadSchema = new Schema({
     file: {
         type: String
     },
+    filePath: {
+        type: String
+    },
     date: {
         type: Date,
         default: Date.now

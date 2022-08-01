@@ -14,7 +14,7 @@ const port = process.env.PORT || 5000
 const users = require('./routes/users')
 const accounts = require('./routes/accounts')
 const timer = require('./routes/timer')
-const upload = require('./routes/fileUpload')
+// const upload = require('./routes/fileUpload')
 
 // Initialize app
 const app = express()

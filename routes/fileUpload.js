@@ -32,27 +32,20 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.get('/upload', (req, res) => res.send('File upload API'))
+router.get('/upload/:filename', (req, res) => {
+    fileUploadModel
+        .find()
+        .then(img => {
+            console.log(img)
+            res.json(img)
+        })
+})
 
 router.put("/uploadfile", upload.single("file"), uploadFile);
 
 function uploadFile(req, res) {
     const host = req.hostname;
     const filePath = req.protocol + "s://" + host + req.file.path;
-
-    // const fileUpload = new FileUploadModel({
-    //     file: req.file.filename,
-    //     filePath: filePath
-    // })
-
-    // fileUpload
-    //     .save()
-    //     .then(file => {
-    //         console.log(file);
-    //         res.json({ message: "Successfully uploaded file", data: file });
-    //     })
-
-
 
     const fileupload = new fileUploadModel({
         file: req.file.filename,

@@ -162,7 +162,7 @@ router.get('/all', (req, res) => {
  *                          $ref: '#/components/schemas/BankAccountModel'
  */
 router.get('/current-user/:user_id', (req, res) => {
-
+    
     const errors = {};
 
     BankAccountModel

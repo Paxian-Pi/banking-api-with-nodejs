@@ -2,9 +2,24 @@ const express = require('express')
 const router = express.Router()
 const multer = require("multer")
 const path = require("path")
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 // const fs = require("fs")
 
 // const FileUploadModel = require('../models/FileUploadModel')
+
+const fileUploadModel = mongoose.model('upload', new Schema({
+    file: {
+        type: String
+    },
+    filePath: {
+        type: String
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    }
+}))
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -37,13 +52,30 @@ function uploadFile(req, res) {
     //         res.json({ message: "Successfully uploaded file", data: file });
     //     })
 
-    res.json({
-        message: "Successfully uploaded file",
-        data: {
-            file: req.file.filename,
-            filePath: filePath
-        }
-    });
+
+
+    const fileupload = new fileUploadModel({
+        file: req.file.filename,
+        filePath: filePath
+    })
+
+    fileupload.save().then(data => {
+        res.json({
+            message: "Successfully uploaded file",
+            data: {
+                file: req.file.filename,
+                filePath: filePath
+            }
+        });
+    })
+
+    // res.json({
+    //     message: "Successfully uploaded file",
+    //     data: {
+    //         file: req.file.filename,
+    //         filePath: filePath
+    //     }
+    // });
 }
 
 

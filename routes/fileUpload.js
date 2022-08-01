@@ -32,7 +32,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.get('/upload/:filename', (req, res) => {
+router.get('/app/routes/uploads/:filename', (req, res) => {
     fileUploadModel
         .find()
         .then(img => {

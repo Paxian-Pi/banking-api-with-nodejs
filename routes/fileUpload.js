@@ -58,14 +58,11 @@ function uploadFile(req, res) {
         file: req.file.filename,
         filePath: filePath
     })
-
-    fileupload.save().then(data => {
+    
+    fileupload.save().then(file => {
         res.json({
             message: "Successfully uploaded file",
-            data: {
-                file: req.file.filename,
-                filePath: filePath
-            }
+            data: file
         });
     })
 

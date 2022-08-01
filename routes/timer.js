@@ -8,7 +8,44 @@ const TimerModel = require('../models/TimerModel')
 // @desc    Get server countdown timer
 // @access  public
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      TimerModel:
+ *          type: object
+ *          properties:
+ *              startTimer:
+ *                  type: string
+ *                  description: Start timer
+ *          required:
+ *              - startTimer
+ *          example:
+ *              startTimer: start
+ */
 
+/**
+ * @swagger
+ * /api/timer/countdown:
+ *  post:
+ *      summary: Get server countdown timer
+ *      tags: [TimerModel]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/TimerModel'
+ *      responses:
+ *          200:
+ *              description: Server countdown timer
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          $ref: '#/components/schemas/TimerModel'
+ */
 router.post('/countdown', (req, res) => {
 
     const interval = setInterval(() => {

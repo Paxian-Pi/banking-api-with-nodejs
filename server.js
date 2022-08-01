@@ -14,7 +14,7 @@ const port = process.env.PORT || 5000
 const users = require('./routes/users')
 const accounts = require('./routes/accounts')
 const timer = require('./routes/timer')
-// const transactions = require('./routes/transactions')
+const upload = require('./routes/fileUpload')
 
 // Initialize app
 const app = express()
@@ -75,6 +75,6 @@ app.get('/', (req, res) => res.send('Welcome! The VeeGil banking API'))
 app.use('/api/user', users)
 app.use('/api/account', accounts)
 app.use('/api/timer', timer)
-// app.use('/api/transactions', transactions)
+app.use('/api/upload', upload)
 
 app.listen(port, () => console.log(`Server running on port ${port}`))

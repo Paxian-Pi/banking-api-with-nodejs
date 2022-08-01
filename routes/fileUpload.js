@@ -4,7 +4,7 @@ const multer = require("multer")
 const path = require("path")
 // const fs = require("fs")
 
-// const FileUploadModel = require('../models/FileUploadModel')
+const FileUploadModel = require('../models/FileUploadModel')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

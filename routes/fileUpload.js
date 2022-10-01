@@ -10,7 +10,7 @@ const Schema = mongoose.Schema
 
 const fileUploadModel = mongoose.model('upload', new Schema({
     file: {
-        type: String
+        type: Object
     },
     filePath: {
         type: String
@@ -26,13 +26,14 @@ const storage = multer.diskStorage({
         cb(null, __dirname + '/uploads/');
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname))
+        // cb(null, Date.now() + path.extname(file.originalname))
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
 });
 
 const upload = multer({ storage: storage });
 
-router.get('/app/routes/uploads/:filename', (req, res) => {
+router.get('/upload/:filename', (req, res) => {
     fileUploadModel
         .find()
         .then(img => {
@@ -44,14 +45,31 @@ router.get('/app/routes/uploads/:filename', (req, res) => {
 router.put("/uploadfile", upload.single("file"), uploadFile);
 
 function uploadFile(req, res) {
+    
+    // upload(req, res, (err) => {
+    //     if (err) {
+    //         return
+    //     }
+    //     else {
+    //         if (req.file != undefined) {
+    //             res.json({
+    //                 message: 'Successfully Uploaded!',
+    //                 data: req.file.filename
+    //             })
+    //         }
+    //     }
+    // })
+
     const host = req.hostname;
     const filePath = req.protocol + "s://" + host + req.file.path;
 
     const fileupload = new fileUploadModel({
-        file: req.file.filename,
+        file: req.file,
         filePath: filePath
     })
-    
+
+    console.log(req.file)
+
     fileupload.save().then(file => {
         res.json({
             message: "Successfully uploaded file",

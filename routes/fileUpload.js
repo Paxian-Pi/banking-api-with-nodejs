@@ -10,7 +10,7 @@ const Schema = mongoose.Schema
 
 const fileUploadModel = mongoose.model('upload', new Schema({
     file: {
-        type: Object
+        type: String
     },
     filePath: {
         type: String
@@ -64,7 +64,7 @@ function uploadFile(req, res) {
     const filePath = req.protocol + "s://" + host + req.file.path;
 
     const fileupload = new fileUploadModel({
-        file: req.file,
+        file: req.file.filename,
         filePath: filePath
     })
 

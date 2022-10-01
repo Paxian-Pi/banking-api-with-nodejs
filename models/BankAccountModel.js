@@ -8,7 +8,7 @@ const BankAccountSchema = new Schema({
     },
     bankName: {
         type: String,
-        default: 'Veegil Finance'
+        default: 'PxB'
     },
     balance: {
         type: Number,

@@ -18,6 +18,7 @@ const ValidateTransactionModel = require('../models/ValidateTransactionModel')
 // @access  public
 router.get('/test', (req, res) => res.json({ message: "Account Works" }))
 
+
 // @route   POST api/accounts/create-account
 // @desc    Create current user's account
 // @access  private
@@ -81,7 +82,7 @@ router.post('/create-account', passport.authenticate('jwt', { session: false }),
     if (!isValid) {
         return res.status(404).json(errors)
     }
-
+    
     const bankAccount = new BankAccountModel({
         user: req.user.id,
         accountNumber: req.body.accountNumber,
@@ -98,7 +99,7 @@ router.post('/create-account', passport.authenticate('jwt', { session: false }),
                 errors.error = 'Account number already exists!'
                 return res.status(404).json(errors)
             }
-
+            
             // Save account
             bankAccount
                 .save()
@@ -162,7 +163,7 @@ router.get('/all', (req, res) => {
  *                          $ref: '#/components/schemas/BankAccountModel'
  */
 router.get('/current-user/:user_id', (req, res) => {
-    
+
     const errors = {};
 
     BankAccountModel
@@ -170,7 +171,7 @@ router.get('/current-user/:user_id', (req, res) => {
         .sort({ date: -1 })
         .populate('user', ['fullname', 'email'])
         .then(account => {
-            if(!account) {
+            if (!account) {
                 errors.error = 'Account does not exist!'
                 return res.status(404).json(errors)
             }
@@ -312,13 +313,13 @@ router.post('/transfer', passport.authenticate('jwt', { session: false }), (req,
                                             { $set: { balance: newBalance } },
                                             { new: true }
                                         ).then(() => {
-
+                                            
                                             // Update current user's balance
                                             const newBalance = (currentUserBalance - transfered.transferAmount)
 
                                             BankAccountModel.findOneAndUpdate(
                                                 { user: req.user.id },
-                                                { $set: { balance: newBalance, bankName: 'Paxian Bank' } },
+                                                { $set: { balance: newBalance, bankName: 'PxB' } },
                                                 { new: true }
                                             ).then(done => res.json(done))
                                         })
@@ -520,7 +521,7 @@ router.post('/deposit', passport.authenticate('jwt', { session: false }), (req, 
         user: req.user.id,
         depositeAmount: req.body.depositeAmount
     })
-    
+
     BankAccountModel.findOne({ user: req.user.id })
         .then(() => {
 
@@ -633,7 +634,7 @@ router.post('/validate-transaction', passport.authenticate('jwt', { session: fal
                 validateTransactionDetails
                     .save()
                     .then(user => {
-
+                        
                         // Compare validation number with validation PIN
                         if (user.validattionNumber === currentUser.transactionPIN) {
                             return res.json(user)
@@ -723,7 +724,7 @@ router.get('/transactions/current-user/:user_id', (req, res) => {
         .sort({ date: -1 })
         .populate('user', ['fullname', 'email'])
         .then(transactions => {
-            if(!transactions) {
+            if (!transactions) {
                 errors.error = 'You have not made any transaction!'
                 return res.status(404).json(errors)
             }

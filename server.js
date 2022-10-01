@@ -15,6 +15,7 @@ const users = require('./routes/users')
 const accounts = require('./routes/accounts')
 const timer = require('./routes/timer')
 const upload = require('./routes/fileUpload')
+const network = require('./routes/network')
 
 // Initialize app
 const app = express()
@@ -37,7 +38,7 @@ const swaggerOptions = {
             version: '1.0.0',
             contact: {
                 email: "paxian.pi@gmail.com",
-            } 
+            }
         },
         servers: [
             { url: 'https://banking-api-with-nodejs.herokuapp.com' },
@@ -76,5 +77,6 @@ app.use('/api/user', users)
 app.use('/api/account', accounts)
 app.use('/api/timer', timer)
 app.use('/api/upload', upload)
+app.use('/api/network', network)
 
 app.listen(port, () => console.log(`Server running on port ${port}`))

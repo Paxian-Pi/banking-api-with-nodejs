@@ -20,7 +20,7 @@ router.post('/create', (req, res) => {
 
             new NetworkModel({ label: req.body.label, isChecked: req.body.isChecked })
                 .save()
-                .then(data => res.json(data))
+                .then(networkDetails => res.json(networkDetails))
                 .catch(err => res.status(404).json(err))
         })
 })

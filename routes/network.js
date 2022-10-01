@@ -9,17 +9,27 @@ const NetworkModel = require('../models/NetworkModel')
 // @access  public
 router.post('/create', (req, res) => {
 
-    new NetworkModel({ label: req.body.label, isChecked: req.body.isChecked })
-        .save()
-        .then(id => res.json(id))
-        .catch(err => res.status(404).json(err))
+    NetworkModel.findOne({ label: req.body.label })
+        .then((network) => {
+
+            // console.log(network)
+
+            if (network != null && network.label == req.body.label) {
+                return res.status(404).json({ 'error': 'Network already exists!' })
+            }
+
+            new NetworkModel({ label: req.body.label, isChecked: req.body.isChecked })
+                .save()
+                .then(data => res.json(data))
+                .catch(err => res.status(404).json(err))
+        })
 })
 
 // @route   POST api/network/network-data
 // @desc    Modify Network
 // @access  public
 router.post('/modify', (req, res) => {
-    
+
     NetworkModel.findOneAndUpdate(
         { label: req.body.label },
         { $set: { isChecked: req.body.isChecked } },

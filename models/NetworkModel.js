@@ -1,22 +1,21 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-
-const NetworkDataSchema = new Schema({
+const NetworkSchema = new Schema({
     label: {
         type: String,
         required: true
     },
     isChecked: {
-        type: Boolean,
+        type: String,
         required: true
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
 })
 
-const NetworkDataModel = mongoose.model('networks', NetworkDataSchema)
+const NetworkModel = mongoose.model('networks', NetworkSchema)
 
-module.exports = NetworkDataModel
+module.exports = NetworkModel

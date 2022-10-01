@@ -2,29 +2,36 @@ const { json } = require('body-parser')
 const express = require('express')
 const router = express.Router()
 
-const NetworkDataModel = require('../models/NetworkDataModel')
+const NetworkModel = require('../models/NetworkModel')
+
+// @route   POST api/network/
+// @desc    Create network
+// @access  public
+router.post('/create', (req, res) => {
+
+    new NetworkModel({ label: req.body.label, isChecked: req.body.isChecked })
+        .save()
+        .then(id => res.json(id))
+        .catch(err => res.status(404).json(err))
+})
 
 // @route   POST api/network/network-data
-// @desc    Network route
+// @desc    Modify Network
 // @access  public
-router.post('/network-data', (req, res) => {
-
-    const networkdata = new NetworkDataModel({
-        label: req.body.label,
-        isChecked: req.body.isChecked
-    })
+router.post('/modify', (req, res) => {
     
-    networkdata
-        .save()
-        .then(networkData => res.json(networkData))
-        .catch(error => res.status(404).json(error))
+    NetworkModel.findOneAndUpdate(
+        { label: req.body.label },
+        { $set: { isChecked: req.body.isChecked } },
+        { new: true }
+    ).then(data => res.json(data))
 })
 
 // @route   GET api/network/all
 // @desc    Network route
 // @access  public
-router.get('/all', (req, res) => {
-    NetworkDataModel
+router.get('/get-all', (req, res) => {
+    NetworkModel
         .find()
         .then(data => res.json(data))
 })

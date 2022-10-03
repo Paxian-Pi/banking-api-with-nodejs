@@ -6,8 +6,8 @@ const NetworkSchema = new Schema({
         type: String,
         required: true
     },
-    isChecked: {
-        type: Boolean,
+    value: {
+        type: String,
         required: true
     },
     date: {

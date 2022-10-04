@@ -9,19 +9,41 @@ const GatewayModel = require('../models/GatewayModel')
 // @access  public
 router.post('/create', (req, res) => {
 
-    GatewayModel.findOne({ location: req.body.location })
+    GatewayModel.findOne({ groupName: req.body.groupName })
         .then((gateway) => {
-            
-            // console.log(network)
 
-            if (gateway != null && gateway.location == req.body.location) {
-                return res.status(404).json({ 'error': `${req.body.location} gateway already exists!` })
+            console.log(gateway)
+            // res.json(gateway)
+
+            if (gateway != null && gateway.location[0].city == req.body.city) {
+                return res.status(404).json({ 'error': `${req.body.city} gateway already exists!` })
             }
             
-            new GatewayModel({ groupName: req.body.groupName, location: req.body.location })
-                .save()
-                .then(gatewayDetails => res.json(gatewayDetails))
-                .catch(err => res.status(404).json(err))
+            if (gateway == null) {
+                new GatewayModel({ groupName: req.body.groupName })
+                    .save()
+                    .then(() => {
+                        // console.log(data)
+                        GatewayModel.findOne({ groupName: req.body.groupName })
+                            .then((gatewayData) => {
+                                const loc = { city: req.body.city }
+                                
+                                gatewayData.location.unshift(loc)
+                                gatewayData.save().then(location => res.json(location))
+                            })
+                    })
+                    .catch(err => res.status(404).json(err))
+            }
+            else {
+                GatewayModel.findOne({ groupName: req.body.groupName })
+                    .then((gatewayData) => {
+                        const loc = { city: req.body.city }
+
+                        gatewayData.location.unshift(loc)
+                        gatewayData.save().then(location => res.json(location))
+                    })
+            }
+
         })
 })
 

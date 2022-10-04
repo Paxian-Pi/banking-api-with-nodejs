@@ -16,6 +16,7 @@ const accounts = require('./routes/accounts')
 const timer = require('./routes/timer')
 const upload = require('./routes/fileUpload')
 const network = require('./routes/network')
+const gateway = require('./routes/gateway')
 
 // Initialize app
 const app = express()
@@ -78,5 +79,6 @@ app.use('/api/account', accounts)
 app.use('/api/timer', timer)
 app.use('/api/upload', upload)
 app.use('/api/network', network)
+app.use('/api/gateway', gateway)
 
 app.listen(port, () => console.log(`Server running on port ${port}`))

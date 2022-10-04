@@ -17,7 +17,7 @@ router.post('/create', (req, res) => {
             if (network != null && network.label == req.body.label) {
                 return res.status(404).json({ 'error': 'Network already exists!' })
             }
-
+            
             new NetworkModel({ label: req.body.label, value: req.body.value })
                 .save()
                 .then(networkDetails => res.json(networkDetails))
@@ -31,8 +31,8 @@ router.post('/create', (req, res) => {
 router.post('/modify', (req, res) => {
     
     NetworkModel.findOneAndUpdate(
-        { label: req.body.label },
-        { $set: { isChecked: req.body.value } },
+        { value: req.body.value },
+        { $set: { label: req.body.label, value: req.body.value } },
         { new: true }
     ).then(data => res.json(data))
 })

@@ -11,6 +11,10 @@ const GatewaySchema = new Schema({
             city: {
                 type: String,
                 required: true
+            },
+            isChecked: {
+                type: Boolean,
+                required: true
             }
         }
     ],

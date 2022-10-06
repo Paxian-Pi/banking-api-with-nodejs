@@ -77,12 +77,14 @@ router.post('/create', (req, res) => {
 // @desc    Modify Network
 // @access  public
 router.post('/modify', (req, res) => {
-    
+
     GatewayModel.findOneAndUpdate(
         { "location.city": req.body.city },
         { $set: { "location.$.isChecked": req.body.isChecked } },
         { new: true }
-    ).then(data => res.json(data))
+    )
+        .then(data => res.json(data))
+        .catch(err => res.status(404).json(err))
 })
 
 // @route   GET api/gateway/get-all
